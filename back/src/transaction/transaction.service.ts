@@ -107,4 +107,26 @@ export class TransactionService {
 
     return await this.transactionRepository.delete(id);
   }
+
+  async findAllByType(id: string, type: string) {
+    const transactions = await this.transactionRepository.find({
+      where: {
+        user: {
+          id,
+        },
+        type,
+      },
+    });
+
+    if (!transactions.length) {
+      throw new NotFoundException('Transactions not found!');
+    }
+
+    const totalTransactionsSum = transactions.reduce(
+      (acc, transaction) => acc + transaction.amount,
+      0,
+    );
+
+    return totalTransactionsSum;
+  }
 }

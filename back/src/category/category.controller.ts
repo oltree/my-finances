@@ -23,8 +23,8 @@ export class CategoryController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
-  create(@Body() createCategoryDto: CreateCategoryDto, @Req() req) {
-    return this.categoryService.create(createCategoryDto, String(req.user.id));
+  create(@Req() req, @Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoryService.create(String(req.user.id), createCategoryDto);
   }
 
   @Get()

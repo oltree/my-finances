@@ -1,0 +1,26 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #394483;
+
+  .text {
+    font-size: 48px;
+    color: rgb(205, 231, 255);
+  }
+
+  .link {
+    padding: 10px;
+    font-size: 32px;
+    color: rgb(118, 177, 233);
+    text-transform: capitalize;
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

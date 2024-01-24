@@ -1,7 +1,18 @@
 import { FC, memo } from 'react';
 
-interface ErrorProps {}
+import { Link } from 'react-router-dom';
+import { Routes } from '../../../types/routes';
 
-export const Error: FC<ErrorProps> = memo(() => {
-  return <div>error</div>;
+import styles from './error.module.scss';
+
+export const Error: FC = memo(() => {
+  return (
+    <div className={styles.wrapper}>
+      <p className={styles.text}>Page not found!</p>
+
+      <Link to={Routes.HOME} className={styles.link}>
+        home
+      </Link>
+    </div>
+  );
 });

@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Routes } from '../../../types/routes';
+import { Routes } from '../../../shared/types/routes';
 
 import styles from './error.module.scss';
 

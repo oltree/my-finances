@@ -3,19 +3,16 @@ import { CiLogin, CiLogout } from 'react-icons/ci';
 import { IoLogoSnapchat } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router-dom';
 
-import { Routes } from '../../../types/routes';
+import { Routes } from '../../../shared/types/routes';
 import { menuItems } from './header.constant';
 
+import { clearLocalStorage } from '../../../shared/utils/local-storage';
 import styles from './header.module.scss';
 
 interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = memo(() => {
   const isAuth = true;
-
-  const handleLogout = () => {
-    localStorage.clear();
-  };
 
   return (
     <header className={styles.header}>
@@ -47,7 +44,7 @@ export const Header: FC<HeaderProps> = memo(() => {
         ) : null}
 
         {isAuth ? (
-          <button className={styles.button} onClick={handleLogout}>
+          <button className={styles.button} onClick={clearLocalStorage}>
             <CiLogout className={styles.logotip} />
           </button>
         ) : (

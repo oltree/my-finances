@@ -1,30 +1,43 @@
 import cn from 'classnames';
 import { FC, FormEvent, memo, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useAppDispatch } from '../../../hooks/hooks';
 import { AuthService } from '../../../services/auth';
+import { Routes } from '../../../shared/types/routes';
+import { setTokenToLocalStorage } from '../../../shared/utils/local-storage';
+import { login } from '../../../store/slices/user';
 import styles from './auth.module.scss';
 
 interface AuthProps {}
 
 export const Auth: FC<AuthProps> = memo(() => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleAuth = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
 
+      const user = { email, password };
       const data = isLogin
-        ? await AuthService.login({ email, password })
-        : await AuthService.registration({ email, password });
+        ? await AuthService.login(user)
+        : await AuthService.registration(user);
 
       if (data) {
-        toast.success(isLogin ? 'Login success!' : 'Registration success!');
-        setIsLogin(!isLogin);
+        if (isLogin) {
+          setTokenToLocalStorage(data.access_token);
+          dispatch(login(data));
+          navigate(Routes.HOME);
+        }
+
         setEmail('');
         setPassword('');
+        toast.success(isLogin ? 'Login success!' : 'Registration success!');
+        setIsLogin(!isLogin);
       }
     } catch (error: any) {
       toast.error(error.response.data.message);

@@ -1,8 +1,10 @@
 export interface IUser {
-  _id?: string;
-  email?: string;
-  password?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  token?: string;
+  id: string;
+  email: string;
+  access_token: string;
+}
+
+export interface IUserData {
+  email: string;
+  password: string;
 }

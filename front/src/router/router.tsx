@@ -5,6 +5,7 @@ import { Categories } from '../components/pages/categories';
 import { Error } from '../components/pages/error';
 import { Home } from '../components/pages/home';
 import { Transactions } from '../components/pages/transactions';
+import { PrivateRoute } from './privateRoute';
 
 export const router = createBrowserRouter([
   {
@@ -14,15 +15,27 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/transactions',
-        element: <Transactions />,
+        element: (
+          <PrivateRoute>
+            <Transactions />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/categories',
-        element: <Categories />,
+        element: (
+          <PrivateRoute>
+            <Categories />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/auth',

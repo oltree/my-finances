@@ -5,5 +5,3 @@ export const setTokenToLocalStorage = (value: string) =>
 
 export const removeTokenFromLocalStorage = () =>
   localStorage.removeItem('token');
-
-export const clearLocalStorage = () => localStorage.clear();

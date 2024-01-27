@@ -30,7 +30,7 @@ export class UserService {
       password: hashPassword,
     });
 
-    return user;
+    return user.email;
   }
 
   async findOne(email: string) {

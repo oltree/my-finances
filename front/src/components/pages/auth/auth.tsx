@@ -9,9 +9,7 @@ import { setTokenToLocalStorage } from '../../../shared/utils/local-storage';
 import { login } from '../../../store/slices/user';
 import styles from './auth.module.scss';
 
-interface AuthProps {}
-
-export const Auth: FC<AuthProps> = memo(() => {
+export const Auth: FC = memo(() => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

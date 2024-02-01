@@ -14,9 +14,7 @@ export const CategoryService = {
       title,
     };
 
-    const response = await api.post(Routes.CATEGORIES, category);
-
-    return response.data;
+    return await api.post(Routes.CATEGORIES, category);
   },
 
   async update(id: string, title: string) {
@@ -25,17 +23,10 @@ export const CategoryService = {
       title,
     };
 
-    const response = await api.patch(
-      `${Routes.CATEGORIES}/category/${id}`,
-      category
-    );
-
-    return response.data;
+    return await api.patch(`${Routes.CATEGORIES}/category/${id}`, category);
   },
 
   async delete(id: string) {
-    const response = await api.delete(id);
-
-    return response.data;
+    return await api.delete(`${Routes.CATEGORIES}/category/${id}`);
   },
 };

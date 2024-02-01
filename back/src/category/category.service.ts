@@ -27,9 +27,7 @@ export class CategoryService {
       throw new BadRequestException('Category already exists!');
     }
 
-    const newCategory = await this.categoryRepository.save(category);
-
-    return newCategory;
+    return await this.categoryRepository.save(category);
   }
 
   async findAll(id: string) {
@@ -76,12 +74,7 @@ export class CategoryService {
       throw new NotFoundException('Category not found!');
     }
 
-    const updatedCategory = await this.categoryRepository.update(
-      id,
-      updateCategoryDto,
-    );
-
-    return updatedCategory;
+    return await this.categoryRepository.update(id, updateCategoryDto);
   }
 
   async remove(id: string) {

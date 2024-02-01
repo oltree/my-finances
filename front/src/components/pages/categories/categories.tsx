@@ -4,43 +4,90 @@ import { FaPlus } from 'react-icons/fa';
 
 import { useAppDispatch } from '../../../hooks/hooks';
 import { useCategoties } from '../../../hooks/useCategories';
-import { getCategories } from '../../../store/thunks/categoties';
+import { useUser } from '../../../hooks/useUser';
+import { CategoryService } from '../../../services/category';
+
+import { getCategories } from '../../../store/slices/categories';
 import { Modal } from '../../ui/modal';
 import styles from './categories.module.scss';
 
 export const Categories: FC = memo(() => {
   const dispatch = useAppDispatch();
   const { categories } = useCategoties();
+  const user = useUser();
+
+  const initialCategory = {
+    id: '',
+    title: '',
+  };
 
   const [showModal, setShowModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
 
-  console.log('categories', categories);
+  const handleAddCategory = async (title: string) => {
+    await CategoryService.create(user?.id || '', title);
+    dispatch(getCategories());
+  };
+
+  const handleOpenEditModal = (id: string, title: string) => {
+    setSelectedCategory({ id, title });
+    setShowModal(!showModal);
+  };
+
+  const handleUpdateCategory = async (title: string) => {
+    await CategoryService.update(selectedCategory.id, title);
+    setSelectedCategory(initialCategory);
+    dispatch(getCategories());
+  };
+
+  const handleDeleteCategory = async (id: string) => {
+    await CategoryService.delete(id);
+    dispatch(getCategories());
+  };
+
+  const handleModalSubmit =
+    selectedCategory.title.length > 0
+      ? handleUpdateCategory
+      : handleAddCategory;
 
   return (
     <>
       <div className={styles.wrapper}>
-        <h1>Your category list:</h1>
+        <h1 className={styles.title}>Your category list:</h1>
 
-        <div>
-          <div>
-            Salary
-            <div>
-              <button>
-                <AiFillEdit />
-              </button>
+        <div className={styles.categories}>
+          {categories.map(category => (
+            <div key={category.id} className={styles.category}>
+              <p className={styles.categoryTitle}>{category.title}</p>
 
-              <button>
-                <AiFillCloseCircle />
-              </button>
+              <div className={styles.categoryButtons}>
+                <button
+                  className={styles.categoryButton}
+                  onClick={() =>
+                    handleOpenEditModal(category.id, category.title)
+                  }
+                >
+                  <AiFillEdit />
+                </button>
+                <button
+                  className={styles.categoryButton}
+                  onClick={() => handleDeleteCategory(category.id)}
+                >
+                  <AiFillCloseCircle />
+                </button>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
-        <button onClick={() => setShowModal(!showModal)}>
+        <button
+          className={styles.button}
+          onClick={() => setShowModal(!showModal)}
+        >
           <FaPlus />
           <span>Create a new category</span>
         </button>
@@ -48,7 +95,8 @@ export const Categories: FC = memo(() => {
 
       {showModal ? (
         <Modal
-          onSubmit={() => {}}
+          title={selectedCategory.title}
+          onSubmit={handleModalSubmit}
           onToggleModal={() => setShowModal(!showModal)}
         />
       ) : null}

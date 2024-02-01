@@ -1,23 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { CategoryService } from '../../services/category';
 import { ICategory } from '../../shared/types/category';
-import {
-  createCategory,
-  deleteCategory,
-  getCategories,
-  updateCategory,
-} from '../thunks/categoties';
 
 interface IInitialState {
   status: string;
-  error?: string;
   categories: ICategory[];
+  error?: string;
 }
 
 const initialState: IInitialState = {
   status: 'succeeded',
-  error: '',
   categories: [],
+  error: '',
 };
+
+export const getCategories = createAsyncThunk(
+  'categories/getCategories',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await CategoryService.getAll();
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 const categoriesSlice = createSlice({
   name: 'categories',
@@ -35,50 +43,6 @@ const categoriesSlice = createSlice({
       .addCase(getCategories.rejected, (state, { error }) => {
         state.status = 'failed';
         state.categories = [];
-        state.error = error.message;
-      })
-
-      .addCase(createCategory.pending, state => {
-        state.status = 'loading';
-      })
-      .addCase(createCategory.fulfilled, (state, { payload: category }) => {
-        state.status = 'succeeded';
-        state.categories.push(category);
-      })
-      .addCase(createCategory.rejected, (state, { error }) => {
-        state.status = 'failed';
-        state.error = error.message;
-      })
-
-      .addCase(updateCategory.pending, state => {
-        state.status = 'loading';
-      })
-      .addCase(
-        updateCategory.fulfilled,
-        (state, { payload: updatedCategory }) => {
-          state.categories = state.categories.map(category =>
-            category.id === updatedCategory.id ? updatedCategory : category
-          );
-        }
-      )
-      .addCase(updateCategory.rejected, (state, { error }) => {
-        state.status = 'failed';
-        state.error = error.message;
-      })
-
-      .addCase(deleteCategory.pending, state => {
-        state.status = 'loading';
-      })
-      .addCase(
-        deleteCategory.fulfilled,
-        (state, { payload: deletedCategoryId }) => {
-          state.categories = state.categories.filter(
-            category => category.id !== deletedCategoryId
-          );
-        }
-      )
-      .addCase(deleteCategory.rejected, (state, { error }) => {
-        state.status = 'failed';
         state.error = error.message;
       });
   },

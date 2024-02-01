@@ -1,0 +1,69 @@
+.wrapper {
+  width: 100%;
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+
+  .categories {
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .category {
+      height: 38px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #81c2ff;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      border-radius: 30px;
+
+      .categoryTitle {
+        font-size: 18px;
+        line-height: 18px;
+      }
+
+      .categoryButtons {
+        display: flex;
+        gap: 5px;
+
+        .categoryButton {
+          height: 15px;
+          width: 15px;
+          background: none;
+          color: #fff;
+          transition: 0.3s ease-in-out;
+
+          &:hover {
+            color: #c7e1f9;
+          }
+        }
+      }
+    }
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 38px;
+    padding: 10px;
+    color: #fff;
+    background: #81c2ff;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      color: #c7e1f9;
+    }
+  }
+}

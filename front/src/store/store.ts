@@ -10,6 +10,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import categoriesReducer from './slices/categories';
+import transactionsReducer from './slices/transactions';
 import userReducer from './slices/user';
 
 const persistConfig = {
@@ -20,6 +21,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   categories: categoriesReducer,
+  transactions: transactionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

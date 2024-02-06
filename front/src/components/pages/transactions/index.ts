@@ -1,1 +1,1 @@
-export { Transactions } from './transactions';
+export { Categories } from './categories';

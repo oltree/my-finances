@@ -6,7 +6,6 @@ import { useAppDispatch } from '../../../hooks/hooks';
 import { useCategoties } from '../../../hooks/useCategories';
 import { useUser } from '../../../hooks/useUser';
 import { CategoryService } from '../../../services/category';
-
 import { getCategories } from '../../../store/slices/categories';
 import { Modal } from '../../ui/modal';
 import styles from './categories.module.scss';

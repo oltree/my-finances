@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IPaginationOptions } from 'src/types/pagination-options';
 import { Repository } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -19,7 +18,7 @@ export class TransactionService {
   async create(id: string, createTransactionDto: CreateTransactionDto) {
     const transaction = {
       title: createTransactionDto.title,
-      amount: createTransactionDto.amount,
+      amount: Number(createTransactionDto.amount),
       type: createTransactionDto.type,
       category: { id: String(createTransactionDto.category) },
       user: { id },
@@ -34,7 +33,7 @@ export class TransactionService {
     return await this.transactionRepository.save(transaction);
   }
 
-  async findAll(id: string, { page, limit, sort }: IPaginationOptions) {
+  async findAll(id: string) {
     const transactions = await this.transactionRepository.find({
       where: {
         user: {
@@ -43,15 +42,7 @@ export class TransactionService {
       },
       relations: {
         category: true,
-        user: {
-          transactions: true,
-        },
       },
-      order: {
-        createdAt: sort || 'DESC',
-      },
-      take: limit || 10,
-      skip: (page - 1) * (limit || 10),
     });
 
     if (!transactions.length) {

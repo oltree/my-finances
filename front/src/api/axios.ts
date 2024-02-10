@@ -4,7 +4,7 @@ import { getTokenFromLocalStorage } from '../shared/utils/local-storage';
 export const api = axios.create({
   baseURL: 'http://localhost:3001/api', // .env
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', // helper
   },
 });
 

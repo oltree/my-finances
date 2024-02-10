@@ -13,6 +13,7 @@ import styles from './header.module.scss';
 interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = memo(() => {
+  // use custom hook and divide into components
   const isAuth = useAuth();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

@@ -9,6 +9,7 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = memo(
   ({ onSubmit, onToggleModal, title }) => {
+    // use custom hook and divide into components
     const [text, setText] = useState('');
 
     useEffect(() => {

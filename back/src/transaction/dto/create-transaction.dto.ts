@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Category } from 'src/category/entities/category.entity';
-import { User } from 'src/user/entities/user.entity';
+import { IUser } from 'src/types/user';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
@@ -16,6 +16,6 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   category: Category;
 
-  @IsNotEmpty()
-  user: User;
+  @IsOptional()
+  user: IUser;
 }

@@ -10,6 +10,7 @@ import { login } from '../../../store/slices/user';
 import styles from './auth.module.scss';
 
 export const Auth: FC = memo(() => {
+  // use custom hook and divide into components
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

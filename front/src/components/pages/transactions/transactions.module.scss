@@ -1,3 +1,61 @@
 .wrapper {
+  margin-top: 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .flexContainerColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .flexContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .input {
+    width: 300px;
+    padding: 10px;
+    color: inherit;
+    font-size: 14px;
+    background: inherit;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px,
+      rgba(0, 0, 0, 0.12) 0 -12px 30px, rgba(0, 0, 0, 0.12) 0 4px 6px,
+      rgba(0, 0, 0, 0.17) 0 12px 13px, rgba(0, 0, 0, 0.09) 0 -3px 5px;
+
+    &::placeholder {
+      color: inherit;
+    }
+
+    &:focus {
+      outline: 0.5px solid #fff;
+    }
+  }
+
+  .button {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 38px;
+    padding: 10px;
+    color: #fff;
+    background: #81c2ff;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      color: #c7e1f9;
+    }
+  }
 }

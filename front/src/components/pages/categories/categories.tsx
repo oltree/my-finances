@@ -1,7 +1,6 @@
 import { FC, memo, useEffect, useState } from 'react';
 import { AiFillCloseCircle, AiFillEdit } from 'react-icons/ai';
 import { FaPlus } from 'react-icons/fa';
-
 import { useAppDispatch } from '../../../hooks/hooks';
 import { useCategoties } from '../../../hooks/useCategories';
 import { useUser } from '../../../hooks/useUser';
@@ -11,6 +10,7 @@ import { Modal } from '../../ui/modal';
 import styles from './categories.module.scss';
 
 export const Categories: FC = memo(() => {
+  // use custom hook and divide into components
   const dispatch = useAppDispatch();
   const { categories } = useCategoties();
   const user = useUser();

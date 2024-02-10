@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   Req,
   UseGuards,
   UsePipes,
@@ -14,8 +13,6 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { IPaginationOptions } from 'src/types/pagination-options';
-import { FindOptionsOrderValue } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { TransactionService } from './transaction.service';
@@ -24,17 +21,10 @@ import { TransactionService } from './transaction.service';
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
-  @Get('pagination')
+  @Get()
   @UseGuards(JwtAuthGuard)
-  findAll(
-    @Req() req,
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('sort') sort: FindOptionsOrderValue,
-  ) {
-    const options: IPaginationOptions = { page, limit, sort };
-
-    return this.transactionService.findAll(String(req.user.id), options);
+  findAll(@Req() req) {
+    return this.transactionService.findAll(String(req.user.id));
   }
 
   @Get(':type/find')
@@ -46,7 +36,7 @@ export class TransactionController {
   @Post()
   @UsePipes(new ValidationPipe())
   @UseGuards(JwtAuthGuard)
-  create(@Body() createTransactionDto: CreateTransactionDto, @Req() req) {
+  create(@Req() req, @Body() createTransactionDto: CreateTransactionDto) {
     return this.transactionService.create(
       String(req.user.id),
       createTransactionDto,

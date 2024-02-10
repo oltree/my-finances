@@ -1,6 +1,6 @@
 # Project Description
 
-This project is a scalable template for a "my finances" project with front and back parts..
+This project is a scalable template for a "my finances" project with front and back parts.
 
 ## Technologies
 
